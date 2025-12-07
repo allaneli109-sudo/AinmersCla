@@ -91,24 +91,50 @@
     .shortcut .label{font-weight:600}
     .badge{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:20px;font-size:12px;color:#d0e1f7}
 
-    /* seção Regras Internas */
-    .rules{
+    /* regras: estilo do accordion */
+    .accordion{
       margin-top:8px;
-      padding:12px;border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border-radius:10px;
+      overflow:hidden;
       border:1px solid rgba(255,255,255,0.02);
-      color:rgba(220,230,240,0.95);
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
     }
-    .rules h4{margin-bottom:8px;color:#fff}
-    .rules p{font-size:13px;color:rgba(220,230,240,0.8);line-height:1.45;margin-bottom:8px}
-    .rules ul{list-style:none;padding-left:0;display:grid;gap:6px}
-    .rules li{
-      background:rgba(255,255,255,0.01);
-      padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);
-      font-size:13px;color:rgba(220,230,240,0.9)
+    .accordion-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .accordion-header h4{font-size:16px;color:#fff}
+    .accordion-header p{font-size:13px;color:rgba(220,230,240,0.7)}
+    .chev{
+      width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);
+      transition:transform .28s ease;
     }
 
-    /* filtro TH e modo */
+    .accordion-content{
+      padding:0 12px 12px 12px;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .36s ease, opacity .28s ease;
+      opacity:0;
+    }
+
+    .accordion-content.open{
+      opacity:1;
+    }
+
+    .rules-list{display:grid;gap:8px;margin-top:8px}
+    .rules-item{
+      background:rgba(255,255,255,0.01);
+      padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);
+      font-size:13px;color:rgba(220,230,240,0.95)
+    }
+
+    /* controles: modo e th */
     .controls{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
     .select, .th-list{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px}
     .th-list button{background:#0b1220;color:#fff;border-radius:8px;padding:6px 8px;border:none;margin-right:6px;cursor:pointer}
@@ -179,46 +205,53 @@
       </div>
     </div>
 
-    <!-- REGRAS INTERNAS (reescrita) -->
-    <section class="rules" aria-labelledby="rules-title">
-      <h4 id="rules-title">Regras Internas — (Somente para o clã)</h4>
-      <p>Esta seção contém as regras e padrões usados internamente pelo clã durante <strong>Guerras</strong> e <strong>Ligas</strong>. Não é uma página pública de recrutamento.</p>
+    <!-- Accordion de Regras -->
+    <div class="accordion" id="rulesAccordion">
+      <div class="accordion-header" id="rulesHeader" tabindex="0" role="button" aria-expanded="false" aria-controls="rulesContent">
+        <div>
+          <h4>Regras Internas — (Somente para o clã)</h4>
+          <p style="margin-top:6px;color:rgba(220,230,240,0.72)">Clique para abrir/fechar as regras internas do clã.</p>
+        </div>
+        <div class="chev" aria-hidden="true">▾</div>
+      </div>
 
-      <ul>
-        <li><strong>Objetivo:</strong> Organização interna — quem ataca, ordem de ALocação e backups.</li>
-        <li><strong>TH variável:</strong> aceitamos TH15 até TH18+ — cada guerra/ligação terá filtro por TH; as regras são aplicadas por TH (ex: TH17 terá prioridade X).</li>
-        <li><strong>Regras de ataque:</strong> definir critério por alvo (percentual, defensores, anéis) — registrar resultado no "Sala de Guerra".</li>
-        <li><strong>Ligas:</strong> o painel suporta modo <em>Guerra</em>, <em>Liga</em> ou <em>Guerra + Liga</em>. Estratégias e escalações são separadas por modo.</li>
-        <li><strong>Penalidades internas:</strong> atrasos/ausências na escala devem ser comunicados no chat do clã; repetidas faltas geram advertência interna.</li>
-      </ul>
-
-      <!-- controles: modo e filtro TH -->
-      <div class="controls" aria-hidden="false">
-        <div class="select" role="region" aria-label="Modo">
-          Modo:
-          <select id="mode" style="background:transparent;border:none;color:#dfe7ee">
-            <option value="both">Guerra + Liga</option>
-            <option value="war">Somente Guerra</option>
-            <option value="league">Somente Liga</option>
-          </select>
+      <div class="accordion-content" id="rulesContent" role="region" aria-labelledby="rulesHeader">
+        <div class="rules-list" style="margin-top:10px">
+          <div class="rules-item"><strong>Objetivo:</strong> Organização interna — quem ataca, ordem de alocação e backups.</div>
+          <div class="rules-item"><strong>TH variável:</strong> aceitamos TH15 até TH18+ — cada guerra/ligação terá filtro por TH; as regras são aplicadas por TH (ex: TH17 terá prioridade X).</div>
+          <div class="rules-item"><strong>Regras de ataque:</strong> definir critério por alvo (percentual, defensores, anéis) — registrar resultado no "Sala de Guerra".</div>
+          <div class="rules-item"><strong>Ligas:</strong> o painel suporta modo <em>Guerra</em>, <em>Liga</em> ou <em>Guerra + Liga</em>. Estratégias e escalações separadas por modo.</div>
+          <div class="rules-item"><strong>Penalidades internas:</strong> atrasos/ausências na escala devem ser comunicados no chat do clã; repetidas faltas geram advertência interna.</div>
         </div>
 
-        <div class="th-list" role="region" aria-label="Filtrar por Centro de Vila (TH)">
-          Filtrar por Centro de Vila (TH):
-          <div style="margin-top:8px">
-            <button class="th-btn" data-th="15">TH15</button>
-            <button class="th-btn" data-th="16">TH16</button>
-            <button class="th-btn active" data-th="17">TH17</button>
-            <button class="th-btn" data-th="18">TH18</button>
-            <button class="th-btn" data-th="all">TODOS</button>
+        <!-- controles: modo e TH -->
+        <div class="controls" style="margin-top:12px">
+          <div class="select" role="region" aria-label="Modo">
+            Modo:
+            <select id="mode" style="background:transparent;border:none;color:#dfe7ee">
+              <option value="both">Guerra + Liga</option>
+              <option value="war">Somente Guerra</option>
+              <option value="league">Somente Liga</option>
+            </select>
+          </div>
+
+          <div class="th-list" role="region" aria-label="Filtrar por Centro de Vila (TH)">
+            Filtrar por Centro de Vila (TH):
+            <div style="margin-top:8px">
+              <button class="th-btn" data-th="15">TH15</button>
+              <button class="th-btn" data-th="16">TH16</button>
+              <button class="th-btn active" data-th="17">TH17</button>
+              <button class="th-btn" data-th="18">TH18</button>
+              <button class="th-btn" data-th="all">TODOS</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div style="margin-top:12px;font-size:13px;color:rgba(220,230,240,0.8)">
-        Observação: as regras acima são um modelo. Quando integrar a API do Clash of Clans, as listas por TH e os estados de guerra/ligas serão sincronizados automaticamente.
+        <div style="margin-top:12px;font-size:13px;color:rgba(220,230,240,0.8)">
+          Observação: as regras acima são um modelo. Quando integrar a API do Clash of Clans, as listas por TH e os estados de guerra/ligas serão sincronizados automaticamente.
+        </div>
       </div>
-    </section>
+    </div>
 
     <!-- Ações -->
     <div class="actions">
@@ -228,7 +261,7 @@
   </main>
 
   <script>
-    // Simples comportamento de UI (local) — substitua por lógica real quando integrar backend/API.
+    // Funções de exemplo
     function enterPanel(){
       alert('Entrando no painel interno (função de demonstração).');
     }
@@ -236,26 +269,67 @@
       alert('Abrir versão pública (se houver).');
     }
 
-    // TH buttons toggles (apenas visual)
-    document.querySelectorAll('.th-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> {
-        document.querySelectorAll('.th-btn').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        // Aqui poderia disparar filtragem real: ex: filterByTH(btn.dataset.th)
-        console.log('Filtrar por TH', btn.dataset.th);
-      })
-    });
+    // Accordion behavior (abrir/fechar com animação ajustando max-height)
+    (function(){
+      const header = document.getElementById('rulesHeader');
+      const content = document.getElementById('rulesContent');
+      const chev = header.querySelector('.chev');
 
-    // Fallback: se banner não carregou, exibir um gradiente escuro
-    window.addEventListener('load', ()=>{
-      const img = document.querySelector('.banner img');
-      if(img && img.complete){
-        if(img.naturalWidth === 0){
-          // imagem não existe ou erro
-          img.style.display = 'none';
-        }
+      function openAccordion(){
+        content.classList.add('open');
+        // set max-height to scrollHeight para animar
+        content.style.maxHeight = content.scrollHeight + 'px';
+        header.setAttribute('aria-expanded','true');
+        chev.style.transform = 'rotate(180deg)';
       }
-    });
+      function closeAccordion(){
+        // para animar fechar, primeiro set max-height para o valor atual
+        content.style.maxHeight = content.scrollHeight + 'px';
+        // força repaint
+        window.getComputedStyle(content).maxHeight;
+        content.style.maxHeight = '0px';
+        content.classList.remove('open');
+        header.setAttribute('aria-expanded','false');
+        chev.style.transform = 'rotate(0deg)';
+      }
+      // estado inicial: fechado
+      content.style.maxHeight = '0px';
+      chev.style.transform = 'rotate(0deg)';
+
+      function toggleAccordion(){
+        const isOpen = header.getAttribute('aria-expanded') === 'true';
+        if(isOpen) closeAccordion(); else openAccordion();
+      }
+
+      header.addEventListener('click', toggleAccordion);
+      header.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          toggleAccordion();
+        }
+      });
+
+      // TH buttons toggles (apenas visual)
+      document.querySelectorAll('.th-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=> {
+          document.querySelectorAll('.th-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          // Aqui poderia disparar filtragem real: ex: filterByTH(btn.dataset.th)
+          console.log('Filtrar por TH', btn.dataset.th);
+        })
+      });
+
+      // Fallback: se banner não carregou, esconde a tag img
+      window.addEventListener('load', ()=>{
+        const img = document.querySelector('.banner img');
+        if(img && img.complete){
+          if(img.naturalWidth === 0){
+            img.style.display = 'none';
+          }
+        }
+      });
+
+    })();
   </script>
 </body>
 </html>
