@@ -4,195 +4,265 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Painel do Clã Aimmers</title>
-
-  <!-- Estilos principais -->
   <style>
-    /* Reset simples */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height: 100%; }
-
-    /* Fundo escuro com leve gradiente */
-    body {
+    /* RESET & BASE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(circle at 20% 10%, rgba(10,14,23,0.6), rgba(2,6,12,1));
-      color: #e6eef8;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 36px 18px;
-    }
-
-    /* Container central */
-    .wrap {
-      width: 100%;
-      max-width: 920px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 14px;
-      box-shadow: 0 8px 30px rgba(2,6,12,0.6);
-      padding: 28px;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    /* Banner - imagem responsiva */
-    .banner {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      display: block;
-      margin-bottom: 18px;
-      background: #0b1116;
-    }
-    .banner img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      -webkit-user-drag: none;
-      user-select: none;
-    }
-
-    /* Cabeçalho do painel */
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-    }
-    header p.lead {
-      color: #b7c4d9;
-      margin-bottom: 16px;
-    }
-
-    /* Cartões */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    .card h3 { font-size: 14px; color: #a9bfd8; margin-bottom: 8px; }
-    .card .big { font-weight: 700; font-size: 20px; color: #ffffff; }
-
-    /* Atalhos lista */
-    .shortcuts { margin-top: 18px; display: grid; gap: 10px; }
-    .shortcut {
+      background: radial-gradient(circle at 10% 10%, #0f1724 0%, #07090b 60%);
+      color:#e6e9ee;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:24px;
       display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,0.03);
-      background: rgba(255,255,255,0.01);
+      justify-content:center;
+      align-items:flex-start;
     }
-    .shortcut .title { color:#d7e6ff; font-weight:600; }
-    .chip { background: rgba(255,255,255,0.03); color: #b7c4d9; padding:6px 8px; border-radius:999px; font-size:12px; }
 
-    /* Botões */
-    .actions { margin-top: 20px; display:flex; gap: 12px; }
+    /* CONTAINER */
+    .card {
+      width:100%;
+      max-width:420px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;
+      padding:18px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px) saturate(120%);
+    }
+
+    /* BANNER */
+    .banner {
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      margin-bottom:16px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .banner img{ width:100%; height:auto; display:block; }
+
+    /* TITLE + SUB */
+    h1{ font-size:22px; margin-bottom:6px; color:#fff}
+    p.lead{ color: #bfc6cf; margin-bottom:14px; line-height:1.4 }
+
+    /* STATUS BOXES */
+    .status-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px }
+    .status {
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.01));
+      padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+      color:#cfd6db;
+      min-height:64px;
+    }
+    .status h3{ font-size:12px; color:#9fb0c6; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.08em }
+    .status strong{ display:block; font-size:18px; color:#fff }
+
+    /* SHORTCUTS */
+    .shortcut{ margin-bottom:10px; padding:12px; border-radius:10px; background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.02); display:flex; justify-content:space-between; align-items:center }
+    .shortcut p{ color:#d2d9df; font-size:14px }
+    .badge{ font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,0.03); color:#cbd6dd }
+
+    /* FILTERS */
+    .controls{ display:flex; gap:10px; margin:14px 0 18px; align-items:center; flex-wrap:wrap }
+    .select, .multi {
+      background: rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.03); padding:8px 10px; border-radius:8px; color:#e6eef8;
+      font-size:14px;
+    }
+    .checkbox-list{ display:flex; gap:8px; flex-wrap:wrap }
+    .checkbox-list label{
+      background: rgba(255,255,255,0.02); padding:8px 10px; border-radius:8px; cursor:pointer; border:1px solid rgba(255,255,255,0.02);
+      font-size:13px; color:#d7e1ea;
+    }
+    .checkbox-list input{ display:none }
+    .checkbox-list input:checked + span{ background: linear-gradient(90deg,#ff9a3c,#ff6a3c); color:#08121a; font-weight:600; border:0 }
+
+    /* VISIT BUTTONS */
+    .actions { display:flex; gap:10px; margin-top:14px }
     .btn {
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
+      padding:12px 16px; border-radius:999px; border:0; cursor:pointer; font-weight:600;
     }
-    .btn.primary {
-      background: linear-gradient(90deg,#ff8a00,#ffc84d);
-      color: #08121a;
-      box-shadow: 0 6px 18px rgba(255,138,0,0.14);
-    }
-    .btn.ghost {
-      background: transparent;
-      color: #cfe4ff;
-      border: 1px solid rgba(255,255,255,0.04);
-    }
+    .primary{ background: linear-gradient(90deg,#ff8a2a,#ffc24a); color:#071018; }
+    .ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:#d9e2e9 }
 
-    /* Responsividade */
-    @media (max-width:720px){
-      .cards { grid-template-columns: 1fr; }
-      header h1 { font-size: 22px; }
-      .wrap { padding: 18px; }
-    }
+    /* CARDS LIST (exemplo de membros / ligas) */
+    .cards{ margin-top:14px; display:grid; gap:10px }
+    .card-item{ padding:12px; border-radius:10px; background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.02); color:#d7e2ea }
+    .muted{ color:#9fb0c6; font-size:13px }
 
-    /* Pequeno rodapé */
-    footer { margin-top: 18px; color: #9fb2d0; font-size:13px; opacity:0.9; }
+    /* FOOT */
+    .small{ font-size:12px; color:#9fb0c6; margin-top:12px; text-align:center }
+    @media (max-width:420px){ .card{ padding:14px } h1{ font-size:20px } }
   </style>
 </head>
 <body>
-  <main class="wrap" role="main" aria-labelledby="title">
-    <!-- ---------- BANNER ---------- 
-         Substitua a imagem em /imagens/banner-clan.png se quiser outra arte.
-         O arquivo que você já enviou deve ficar com esse nome e caminho.
-    -->
-    <a class="banner" href="/" aria-label="Banner do Clã Aimmers">
-      <img src="./imagens/banner-clan.png" alt="Banner Clã Aimmers - Painel Oficial">
-    </a>
-
-    <!-- CABEÇALHO -->
-    <header>
-      <h1 id="title">Painel do Clã Aimmers</h1>
-      <p class="lead">Versão inicial do painel. Em breve vamos conectar guerras, ataques e membros em tempo real.</p>
-    </header>
-
-    <!-- CARTÕES INFORMAÇÕES -->
-    <section class="cards" aria-label="Resumo">
-      <div class="card">
-        <h3>GUERRAS</h3>
-        <div class="big">0 em andamento</div>
-        <div style="margin-top:8px;color:#9fb2d0;font-size:13px;">Esta informação será automática depois.</div>
-      </div>
-      <div class="card">
-        <h3>MEMBROS</h3>
-        <div class="big">—</div>
-        <div style="margin-top:8px;color:#9fb2d0;font-size:13px;">Lista virá da API do Clash of Clans.</div>
-      </div>
-    </section>
-
-    <!-- ATALHOS -->
-    <section class="shortcuts" aria-label="Atalhos rápidos">
-      <div class="shortcut">
-        <div>
-          <div class="title">Sala de Guerra</div>
-          <div style="color:#9fb2d0;font-size:13px;">Controle de ataques, quem atacou e quem faltou.</div>
-        </div>
-        <div class="chip">em breve</div>
-      </div>
-
-      <div class="shortcut">
-        <div>
-          <div class="title">Membros & Funções</div>
-          <div style="color:#9fb2d0;font-size:13px;">Organizar líderes, co-leaders, anciões e recrutas.</div>
-        </div>
-        <div class="chip">planejando</div>
-      </div>
-
-      <div class="shortcut">
-        <div>
-          <div class="title">Regras & Recrutamento</div>
-          <div style="color:#9fb2d0;font-size:13px;">Página pública para regras, requisitos e contato.</div>
-        </div>
-        <div class="chip">rascunho</div>
-      </div>
-    </section>
-
-    <!-- AÇÕES -->
-    <div class="actions">
-      <button class="btn primary" onclick="location.href='#'">Entrar no painel</button>
-      <button class="btn ghost" onclick="window.open(window.location.href, '_blank')">Ver versão pública</button>
+  <main class="card" role="main">
+    <!-- BANNER: usa o arquivo já carregado em images/banner-clan.png -->
+    <div class="banner">
+      <img src="images/banner-clan.png" alt="Banner Clã Aimmers - Painel" />
     </div>
 
-    <footer>
-      Protótipo · v0.1 — Clã Aimmers
-    </footer>
+    <h1>Painel do Clã Aimmers</h1>
+    <p class="lead">Versão inicial do painel. Conecta guerras, ligas e membros por nível de Centro de Vila (TH).</p>
+
+    <!-- Status Boxes -->
+    <div class="status-grid">
+      <div class="status">
+        <h3>Guerras</h3>
+        <strong id="war-count">0 em andamento</strong>
+        <div class="muted">Esta informação será automática depois (API).</div>
+      </div>
+      <div class="status">
+        <h3>Membros</h3>
+        <strong id="members-count">—</strong>
+        <div class="muted">Lista virá da API do Clash of Clans.</div>
+      </div>
+    </div>
+
+    <!-- Shortcuts -->
+    <div class="shortcut">
+      <p>Sala de Guerra — Controle de ataques, quem atacou e quem faltou.</p>
+      <span class="badge">em breve</span>
+    </div>
+    <div class="shortcut">
+      <p>Membros & Funções — Organizar líderes, co-leaders e recrutamento.</p>
+      <span class="badge">planejando</span>
+    </div>
+    <div class="shortcut">
+      <p>Regras & Recrutamento — Página pública com requisitos e contato.</p>
+      <span class="badge">rascunho</span>
+    </div>
+
+    <!-- CONTROLES: Modo (Guerra/Liga), Filtro TH -->
+    <div class="controls" aria-label="Controles">
+      <div class="select" style="display:flex;gap:8px;align-items:center">
+        <label style="font-size:13px;color:#b7c6d4;margin-right:6px">Modo:</label>
+        <select id="modeSelect" class="select" style="background:transparent;border:none;outline:none;color:inherit">
+          <option value="both">Guerra + Liga</option>
+          <option value="war">Guerra</option>
+          <option value="league">Liga</option>
+        </select>
+      </div>
+
+      <div style="flex:1">
+        <label style="font-size:13px;color:#b7c6d4;display:block;margin-bottom:6px">Filtrar por Centro de Vila (TH)</label>
+        <div class="checkbox-list" id="thFilters">
+          <!-- inputs criados por JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="btn primary" id="enterPanel">Entrar no painel</button>
+      <button class="btn ghost" id="visitPublic">Ver versão pública</button>
+    </div>
+
+    <!-- Exemplos de conteúdo que muda conforme filtros -->
+    <div class="cards" id="dynamicList">
+      <!-- JS popula -->
+    </div>
+
+    <div class="small">Protótipo · v0.1 — Clã Aimmers</div>
   </main>
+
+  <script>
+    /************************************************************************
+     * Dados de exemplo (substituir por chamada à API depois)
+     * cada item tem { id, title, mode: 'war'|'league'|'both', th: [16,17,18], description }
+     *************************************************************************/
+    const sampleItems = [
+      { id:1, title:'Guerra Amistosa - 18/17', mode:'war', th:[18,17], description:'Guerra teste com TH18 e TH17' },
+      { id:2, title:'Liga - Divisão Ouro', mode:'league', th:[18,17,16], description:'Participantes na liga (multi-TH)' },
+      { id:3, title:'Treino 5x5 - somente TH16', mode:'war', th:[16], description:'Treino entre membros TH16' },
+      { id:4, title:'Evento Misto', mode:'both', th:[15,16,17,18], description:'Evento aberto a múltiplos TH' },
+    ];
+
+    // Lista de TH suportados (você pode estender)
+    const thList = [15,16,17,18];
+
+    // Cria checkbox UI de TH
+    const thFiltersEl = document.getElementById('thFilters');
+    thList.forEach(th => {
+      const id = 'th_'+th;
+      const wrapper = document.createElement('label');
+      wrapper.setAttribute('for', id);
+      wrapper.innerHTML = `<input type="checkbox" id="${id}" value="${th}" checked /><span>TH${th}</span>`;
+      thFiltersEl.appendChild(wrapper);
+
+      // ao clicar atualiza listagem
+      wrapper.querySelector('input').addEventListener('change', renderFiltered);
+    });
+
+    // Modo select
+    document.getElementById('modeSelect').addEventListener('change', renderFiltered);
+
+    // Função que pega filtros selecionados
+    function getSelectedTHs(){
+      return [...thFiltersEl.querySelectorAll('input:checked')].map(i => parseInt(i.value));
+    }
+    function getSelectedMode(){
+      return document.getElementById('modeSelect').value; // 'war','league','both'
+    }
+
+    // Renderiza items que batem com filtros
+    function renderFiltered(){
+      const selectedTH = getSelectedTHs();
+      const mode = getSelectedMode();
+      const container = document.getElementById('dynamicList');
+      container.innerHTML = '';
+
+      // filtra sampleItems por interseção TH e por modo
+      const results = sampleItems.filter(item => {
+        // modo: allow if item.mode === mode OR item.mode==='both' OR mode==='both'
+        if(mode !== 'both' && item.mode !== 'both' && item.mode !== mode) return false;
+        // TH interseção
+        const intersection = item.th.filter(t => selectedTH.includes(t));
+        return intersection.length > 0;
+      });
+
+      if(results.length === 0){
+        const no = document.createElement('div');
+        no.className = 'card-item';
+        no.textContent = 'Nenhum evento ou liga corresponde aos filtros selecionados.';
+        container.appendChild(no);
+        return;
+      }
+
+      // monta cards
+      results.forEach(r => {
+        const el = document.createElement('div');
+        el.className = 'card-item';
+        el.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong style="font-size:15px">${r.title}</strong>
+            <span class="muted">${r.mode === 'both' ? 'Guerra+Liga' : (r.mode==='war'?'Guerra':'Liga')}</span>
+          </div>
+          <div style="margin-top:8px;color:#d9e6ef">${r.description}</div>
+          <div style="margin-top:8px;font-size:13px;color:#99a9b8">Permissão: TH ${r.th.join(', ')}</div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    // Inicializa contadores e lista
+    function init(){
+      // exemplo: atualiza contadores com dados de exemplo (substituir por API)
+      document.getElementById('war-count').textContent = '0 em andamento';
+      document.getElementById('members-count').textContent = '—';
+
+      renderFiltered();
+    }
+
+    // ações dos botões (só navegação de exemplo)
+    document.getElementById('enterPanel').addEventListener('click', () => {
+      // se no futuro for rota interna pode abrir painel
+      alert('Entrando no painel (futuro link interno).');
+    });
+    document.getElementById('visitPublic').addEventListener('click', () => {
+      window.open(window.location.href, '_blank');
+    });
+
+    init();
+  </script>
 </body>
 </html>
