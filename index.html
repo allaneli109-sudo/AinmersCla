@@ -35,4 +35,144 @@
 
     .banner img {
       width: 100%;
-      border-radius:
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #cbd5e1;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+
+    .card-value {
+      font-size: 22px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.1);
+      margin-left: 6px;
+      color: #cbd5e1;
+    }
+
+    .btn-area {
+      margin-top: 28px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    a.button {
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: inline-block;
+      text-align: center;
+      flex: 1;
+    }
+
+    .btn-yellow {
+      background: linear-gradient(to right, #facc15, #fbbf24);
+      color: #000;
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #e5e7eb;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 14px;
+      text-align: center;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Banner corrigido -->
+    <div class="banner">
+      <img src="imagens/banner-clan.png" alt="Banner Clã Aimmers - Painel" />
+    </div>
+
+    <h1>Painel do Clã Aimmers</h1>
+    <p>Versão inicial do painel. Conecta guerras, ligas e membros por nível de Centro de Vila (TH).</p>
+
+    <!-- Seção Guerras -->
+    <div class="card">
+      <div class="card-title">GUERRAS</div>
+      <div class="card-value">0 em andamento</div>
+      <div>Esta informação será automática depois (API).</div>
+    </div>
+
+    <!-- Seção Membros -->
+    <div class="card">
+      <div class="card-title">MEMBROS</div>
+      <div class="card-value">—</div>
+      <div>Lista virá da API do Clash of Clans.</div>
+    </div>
+
+    <!-- Links internos -->
+    <div class="card">
+      Sala de Guerra — Controle de ataques, quem atacou e quem faltou.
+      <span class="tag">em breve</span>
+    </div>
+
+    <div class="card">
+      Membros & Funções — Organizar líderes, co-leaders e recrutamento.
+      <span class="tag">planejando</span>
+    </div>
+
+    <div class="card">
+      Regras & Recrutamento — Página pública com requisitos e contato.
+      <span class="tag">rascunho</span>
+    </div>
+
+    <!-- Botões -->
+    <div class="btn-area">
+      <a href="painel.html" class="button btn-yellow">Entrar no painel</a>
+      <a href="#" class="button btn-outline">Ver versão pública</a>
+    </div>
+
+    <footer>
+      Protótipo • v0.1 — Clã Aimmers
+    </footer>
+
+  </div>
+</body>
+</html>
