@@ -3,84 +3,201 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AimmersCl — Painel do Clã</title>
+  <title>Aimmers — Painel do Clã</title>
+  <meta name="description" content="Painel interno do clã Aimmers — guerras, ligas e organização por TH." />
   <style>
     :root{
-      --bg:#05070a;
-      --panel:#0d1417;
-      --card:#0f171a;
-      --muted:rgba(255,255,255,0.65);
-      --accent:#ff9b1a;
+      --bg:#071018;
+      --card:#0c1318;
+      --muted:#9fb0bd;
+      --accent:#ff8b2b;
+      --glass: rgba(255,255,255,0.02);
+      --radius:14px;
+      --maxwidth:920px;
+      color-scheme: dark;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(circle at 50% 10%, #071014 0%, #040607 60%),var(--bg);color:#fff;padding:20px}
-    .wrap{max-width:920px;margin:0 auto}
-    header{display:flex;align-items:center;gap:12px}
-    header h1{font-size:1.4rem;margin:0}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:16px;margin-top:18px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-    .banner{border-radius:10px;overflow:hidden;background:#071018;padding:12px}
-    .banner img{display:block;width:100%;height:auto;object-fit:cover}
-    .lead{color:var(--muted);margin:10px 0 14px 0}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .small{color:var(--muted);font-size:.95rem}
-    .btn-primary{background:linear-gradient(180deg,#ffb35b,#ff9b1a);border:none;padding:12px 16px;border-radius:10px;color:#111;font-weight:800;cursor:pointer;text-decoration:none}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 16px;border-radius:10px;color:var(--muted);text-decoration:none}
-    footer{margin-top:18px;color:var(--muted);font-size:.9rem}
-    @media(max-width:720px){.grid{grid-template-columns:1fr}.banner{padding:8px}}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#06111a 0%, #030306 100%);color:#e9f2f8;-webkit-font-smoothing:antialiased}
+    .container{max-width:var(--maxwidth);margin:22px auto;padding:18px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#0b1220,#0b1b28);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04)
+    }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:20px;margin:0}
+    .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
+
+    .hero{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .banner{
+      border-radius:12px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,0.03);
+      min-height:140px;display:flex;align-items:center;justify-content:center;
+    }
+    .banner img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .stat{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .stat h3{margin:0;font-size:13px;color:#cfe3f6}
+    .stat p{margin:8px 0 0;font-weight:700;font-size:18px;color:#fff}
+
+    .full{grid-column:1 / -1}
+
+    .controls{
+      display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap;
+    }
+    .select{
+      background:var(--card);border-radius:12px;padding:10px 12px;border:1px solid rgba(255,255,255,0.03);color:#e6f4fb;display:flex;align-items:center;gap:8px;
+    }
+    .select select{background:transparent;border:0;color:inherit;font-weight:700;outline:none}
+    .th-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);font-weight:700;color:#d8ecf9;cursor:pointer}
+    .chip.active{background:var(--accent);color:#111}
+
+    .cards{
+      display:grid;gap:12px;margin-top:14px;
+    }
+    .card{
+      background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)
+    }
+    .card h4{margin:0;font-size:15px}
+    .card p{margin:8px 0 0;color:var(--muted);font-size:14px}
+
+    .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+    .btn{
+      padding:12px 14px;border-radius:12px;border:0;font-weight:800;cursor:pointer;text-decoration:none;text-align:center;display:inline-block;
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#ffb85b);color:#081014;box-shadow:0 8px 24px rgba(255,140,40,0.12)}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dfeef9}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* mobile adjustments */
+    @media(max-width:720px){
+      .grid{grid-template-columns:1fr}
+      header{gap:10px}
+      .logo{width:48px;height:48px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container" role="main">
     <header>
-      <h1>Painel do Clã Aimmers</h1>
+      <div class="logo" aria-hidden="true">
+        <img src="imagens/banner-clan.png" alt="Logo Clã Aimmers" onerror="this.style.display='none'"/>
+      </div>
+      <div>
+        <h1>Aimmers — Painel do Clã</h1>
+        <div class="subtitle">Organização de guerras, ligas e membros — interface mobile-friendly</div>
+      </div>
     </header>
 
-    <div class="card banner" role="img" aria-label="Banner Clã Aimmers">
-      <!-- Se a imagem não abrir, verifique se existe: imagens/banner-clan.png -->
-      <img src="imagens/banner-clan.png" alt="Banner Clã Aimmers" onerror="this.style.opacity=.06"/>
-    </div>
+    <section class="hero" aria-label="Área principal">
+      <div class="banner" aria-hidden="false">
+        <img src="imagens/banner-clan.png" alt="Banner do Clã Aimmers" onerror="this.style.filter='brightness(0.06)';this.alt='Banner indisponível'"/>
+      </div>
 
-    <div class="card">
-      <p class="lead">Versão inicial do painel. Conecta guerras, ligas e membros por nível de Centro de Vila (TH).</p>
-
-      <div class="grid" style="margin-top:8px;">
-        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);">
-          <div style="font-weight:700">GUERRAS</div>
-          <div style="font-size:1.2rem;font-weight:800;margin-top:8px">0 em andamento</div>
-          <div class="small" style="margin-top:8px">Esta informação será automática depois (API).</div>
+      <div class="controls" role="region" aria-label="Controles principais">
+        <div class="select" role="group" aria-label="Modo de operação">
+          Modo:
+          <select id="modeSelect" aria-label="Selecionar modo">
+            <option value="both">Guerra + Liga</option>
+            <option value="war">Guerra</option>
+            <option value="league">Liga</option>
+          </select>
         </div>
 
-        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);">
-          <div style="font-weight:700">MEMBROS</div>
-          <div style="font-size:1.2rem;font-weight:800;margin-top:8px">—</div>
-          <div class="small" style="margin-top:8px">Lista virá da API do Clash of Clans</div>
+        <div style="flex:1">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Filtrar por Centro de Vila (TH):</div>
+          <div class="th-chips" role="list" id="thChips">
+            <div class="chip" data-th="15" role="listitem">TH15</div>
+            <div class="chip" data-th="16" role="listitem">TH16</div>
+            <div class="chip active" data-th="17" role="listitem">TH17</div>
+            <div class="chip" data-th="18" role="listitem">TH18</div>
+            <div class="chip" data-th="all" role="listitem">TODOS</div>
+          </div>
         </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <div style="margin-bottom:10px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);">
-          <div style="font-weight:700">Sala de Guerra</div>
-          <div class="small">Controle de ataques, quem atacou e quem faltou.</div>
+      <div class="grid" aria-hidden="false">
+        <div class="stat">
+          <h3>GUERRAS</h3>
+          <p id="warCount">0 em andamento</p>
         </div>
 
-        <div style="margin-bottom:10px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);">
-          <div style="font-weight:700">Membros & Funções</div>
-          <div class="small">Organizar líderes, co-leaders e recrutamento interno.</div>
+        <div class="stat">
+          <h3>MEMBROS</h3>
+          <p id="memberCount">—</p>
         </div>
 
-        <div style="margin-bottom:10px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);">
-          <div style="font-weight:700">Regras & Recrutamento</div>
-          <div class="small">Página privada para regras e estratégias — acesso via painel de regras.</div>
+        <div class="stat full" style="display:flex;flex-direction:column;gap:8px">
+          <h3>SALA DE GUERRA</h3>
+          <p class="small">Controle de ataques: quem atacou, quem faltou e backups.</p>
+        </div>
+
+        <div class="stat full" style="display:flex;flex-direction:column;gap:8px">
+          <h3>MEMBROS & FUNÇÕES</h3>
+          <p class="small">Organizar líderes, co-líderes e comunicação interna.</p>
         </div>
       </div>
 
-      <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;">
-        <a href="painel.html" class="btn-primary">Entrar no painel</a>
-        <a href="regras.html" class="btn-ghost">Regras / Premiações</a>
-      </div>
-    </div>
+      <div class="cards">
+        <div class="card">
+          <h4>Resumo Rápido</h4>
+          <p>Use os filtros acima para visualizar por TH e por modo. As regras e premiações estão na página de Regras.</p>
+        </div>
 
-    <footer>Protótipo · v0.1 — Clã Aimmers</footer>
+        <div class="card">
+          <h4>Notas</h4>
+          <p>Este é um protótipo. Integração com a API do Clash e login privado virão em seguida.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="painel.html" class="btn primary" id="enterPanelBtn">Entrar no painel</a>
+        <a href="regras.html" class="btn ghost" id="rulesBtn">Regras / Premiações</a>
+      </div>
+
+    </section>
+
+    <footer>
+      Protótipo · Clã Aimmers — v0.1
+    </footer>
   </div>
+
+  <script>
+    // chips TH - toggle visual
+    document.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active');
+        // comportamento futuro: filtrar lista por TH
+        console.log('TH selecionado:', chip.dataset.th);
+      });
+    });
+
+    // modo select listener
+    document.getElementById('modeSelect').addEventListener('change', (e)=>{
+      console.log('Modo selecionado:', e.target.value);
+    });
+
+    // placeholder: atualizar contadores (substituir por fetch quando integrar API)
+    (function initPlaceholders(){
+      document.getElementById('warCount').textContent = 'Nenhuma no momento';
+      document.getElementById('memberCount').textContent = '42 membros';
+    })();
+  </script>
 </body>
 </html>
